@@ -11,6 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>Ticket-Go</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>Ticket-Go</name>
     <description>Ticket-Go</description>
     <url/>
@@ -50,5 +51,9 @@
             </plugin>
         </plugins>
     </build>
+
+    <modules>
+        <module>ticket-service</module>
+    </modules>
 
 </project>
