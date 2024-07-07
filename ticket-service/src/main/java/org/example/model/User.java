@@ -17,11 +17,17 @@ public class User {
 
     Long id;
 
-    @Pattern(regexp = "^\\S+$", message = "Логин не должен содержать пробелов")
+    @Pattern(
+            regexp = "^\\S+$",
+            message = "Логин не должен содержать пробелов"
+    )
     @NotBlank
     String login;
 
-    @Length(min = 8)
+    @Length(
+            min = 8, max = 20,
+            message = "Пароль не может быть меньше 8 символов или больше 20"
+    )
     String password;
 
     @NotBlank
@@ -30,8 +36,7 @@ public class User {
     @JsonIgnore
     final List<Long> purchasedTickets = new ArrayList<>();
 
-
-    public void addPurchasedTickets (Long ticketId) {
+    public void addPurchasedTickets(Long ticketId) {
         purchasedTickets.add(ticketId);
     }
 }

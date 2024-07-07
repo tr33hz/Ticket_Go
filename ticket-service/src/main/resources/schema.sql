@@ -34,7 +34,8 @@ CREATE TABLE tickets
     date_time   DATE,
     seat_number INTEGER,
     price       NUMERIC(19, 4),
-    available   BOOLEAN,
+    available   BOOLEAN DEFAULT TRUE,
     user_id     INTEGER REFERENCES users (id)
 );
+
 

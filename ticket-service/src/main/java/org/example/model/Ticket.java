@@ -1,10 +1,7 @@
 package org.example.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -31,7 +28,8 @@ public class Ticket {
     @Positive(message = "Цена билета не может равняться 0 или быть меньше")
     BigDecimal price;
 
-    Boolean available;
+    @JsonIgnore
+    Boolean available = true;
 
     @JsonIgnore
     Long userId;

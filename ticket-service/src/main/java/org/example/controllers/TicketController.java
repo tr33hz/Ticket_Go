@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.model.Ticket;
-import org.example.model.User;
 import org.example.service.TicketService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ public class TicketController {
     TicketService ticketService;
 
     @PostMapping
-    public Long userRegistration(@Valid @RequestBody Ticket ticket) {
+    public Long ticketSave(@Valid @RequestBody Ticket ticket) {
         return ticketService.save(ticket);
     }
 
