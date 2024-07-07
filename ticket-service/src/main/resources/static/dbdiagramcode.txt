@@ -1,0 +1,40 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users {
+  id       integer [primary key]
+  login    varchar
+  password varchar
+  fio      varchar
+}
+
+Table transporters {
+  id     integer [primary key]
+  name   varchar
+  number varchar
+}
+
+Table paths {
+  id integer [primary key]
+  start          varchar
+  finish         varchar
+  transporter_id integer
+  travel_time    integer
+}
+
+Table tickets {
+  id          integer [primary key]
+  path_id     integer
+  date_time   datetime
+  seat_number integer
+  price       numeric(19, 4)
+}
+
+Ref: tickets.path_id > paths.id
+Ref: paths.transporter_id > transporters.id
+
+//Ref: posts.user_id > users.id // many-to-one
+
+//Ref: users.id < follows.following_user_id
+
+//Ref: users.id < follows.followed_user_id
