@@ -36,10 +36,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<List<Long>> getAllTickets(Long id) {
-        User user = userRepository.findById(id)
+    public Optional<List<Ticket>> getAllTickets(Long id) {
+        userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Пользователь с таким id не существует"));
 
-        return Optional.ofNullable(user.getPurchasedTickets());
+        return userRepository.getAllTickets(id);
     }
 }

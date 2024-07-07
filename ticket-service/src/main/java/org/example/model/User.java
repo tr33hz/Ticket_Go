@@ -31,7 +31,7 @@ public class User {
     String password;
 
     @NotBlank
-    String fio;
+    String name;
 
     @JsonIgnore
     final List<Long> purchasedTickets = new ArrayList<>();

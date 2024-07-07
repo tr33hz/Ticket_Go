@@ -3,7 +3,9 @@ package org.example.repository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.example.model.Ticket;
 import org.example.model.User;
+import org.example.repository.mappers.TicketRowMapper;
 import org.example.repository.mappers.UserRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -25,12 +27,12 @@ public class UserRepository {
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public Long registration(User user) {
-        String query = "INSERT INTO users (login, password, fio) VALUES (:login, :password, :fio)";
+        String query = "INSERT INTO users (login, password, name) VALUES (:login, :password, :name)";
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("login", user.getLogin());
         mapSqlParameterSource.addValue("password", user.getPassword());
-        mapSqlParameterSource.addValue("fio", user.getFio());
+        mapSqlParameterSource.addValue("name", user.getName());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -46,10 +48,16 @@ public class UserRepository {
     }
 
     public List<User> findAll() {
-
         String sql = "SELECT * FROM users";
 
         return jdbcTemplate.query(sql, new UserRowMapper());
+    }
+
+    public Optional<List<Ticket>> getAllTickets(Long id) {
+        String sql = "SELECT * FROM tickets WHERE user_id = ?";
+
+
+        return Optional.of(jdbcTemplate.query(sql, new TicketRowMapper(), id));
     }
 }
 

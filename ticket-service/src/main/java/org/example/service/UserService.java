@@ -13,5 +13,5 @@ public interface UserService {
 
     List<User> findAll();
 
-    Optional<List<Long>> getAllTickets(Long id);
+    Optional<List<Ticket>> getAllTickets(Long id);
 }
