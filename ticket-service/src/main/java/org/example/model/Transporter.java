@@ -8,6 +8,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Transporter {
 
+    Long id;
+
     String name;
 
     String number;

@@ -14,10 +14,8 @@ public class Path {
 
     String finish;
 
-    Transporter transporter;
+    Long transporterId;
 
-    LocalTime travelTime;
-
-
+    Integer travelTime;
 
 }

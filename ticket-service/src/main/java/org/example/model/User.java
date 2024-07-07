@@ -26,4 +26,8 @@ public class User {
     @NotBlank
     String fio;
 
+
+
+    // List tickets
+
 }
