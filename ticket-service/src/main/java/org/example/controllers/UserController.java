@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.exceptions.TicketAlreadyPurchasedException;
+import org.example.model.Ticket;
 import org.example.model.User;
 import org.example.service.TicketService;
 import org.example.service.UserService;
@@ -48,6 +49,11 @@ public class UserController {
         } catch (TicketAlreadyPurchasedException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/tickets/{id}")
+    public Optional<List<Long>> getAllTicketsByUser (@PathVariable Long id) {
+        return userService.getAllTickets(id);
     }
 
 }

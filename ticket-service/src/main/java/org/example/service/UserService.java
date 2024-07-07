@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.Ticket;
 import org.example.model.User;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface UserService {
     Optional<User> findById(Long id);
 
     List<User> findAll();
+
+    Optional<List<Long>> getAllTickets(Long id);
 }
