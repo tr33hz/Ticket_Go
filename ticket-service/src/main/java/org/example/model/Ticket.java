@@ -1,8 +1,11 @@
 package org.example.model;
 
-import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
@@ -29,5 +32,8 @@ public class Ticket {
     BigDecimal price;
 
     Boolean available;
+
+    @JsonIgnore
+    Long userId;
 
 }

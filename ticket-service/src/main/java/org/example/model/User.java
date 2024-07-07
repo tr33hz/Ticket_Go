@@ -1,23 +1,24 @@
 package org.example.model;
 
-import jakarta.validation.constraints.Min;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
-    Long id; // обработать excep в случае ненахода
+    Long id;
 
     @Pattern(regexp = "^\\S+$", message = "Логин не должен содержать пробелов")
     @NotBlank
-    //обработать excep с одинаковым логином
     String login;
 
     @Length(min = 8)
@@ -26,8 +27,11 @@ public class User {
     @NotBlank
     String fio;
 
+    @JsonIgnore
+    final List<Long> purchasedTickets = new ArrayList<>();
 
 
-    // List tickets
-
+    public void addPurchasedTickets (Long ticketId) {
+        purchasedTickets.add(ticketId);
+    }
 }

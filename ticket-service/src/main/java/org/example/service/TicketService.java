@@ -11,4 +11,6 @@ public interface TicketService {
     Optional<Ticket> findById(Long id);
 
     List<Ticket> getAvailableTickets(String dateTime, String start, String finish, String transporterName, int page, int size);
+
+    void purchaseTicket(Long ticketId, Long userId);
 }

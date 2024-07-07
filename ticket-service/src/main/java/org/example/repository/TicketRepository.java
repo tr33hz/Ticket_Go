@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.model.Ticket;
 import org.example.repository.mappers.TicketRowMapper;
-import org.example.repository.mappers.UserRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -28,15 +27,17 @@ public class TicketRepository {
 
     public Long save(Ticket ticket) {
 
-        String query = "INSERT INTO tickets (path_id, date_time, seat_number, price, available) " +
-                "VALUES (:path_id, :date_time, :seat_number, :price, :available)";
+        String query = "INSERT INTO tickets (path_id, date_time, seat_number, price, available, user_id) " +
+                "VALUES (:path_id, :date_time, :seat_number, :price, :available, :user_id)";
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource.addValue("path_id", ticket.getPathId());
         mapSqlParameterSource.addValue("date_time", ticket.getDateTime());
         mapSqlParameterSource.addValue("seat_number", ticket.getSeatNumber());
         mapSqlParameterSource.addValue("price", ticket.getPrice());
-        mapSqlParameterSource.addValue("purchased", ticket.getAvailable());
+        mapSqlParameterSource.addValue("available", ticket.getAvailable());
+        mapSqlParameterSource.addValue("user_id", ticket.getUserId());
+
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -55,7 +56,7 @@ public class TicketRepository {
         StringBuilder sql = new StringBuilder("SELECT t.* FROM tickets t " +
                 "JOIN paths p ON t.path_id = p.id " +
                 "JOIN transporters tr ON p.transporter_id = tr.id " +
-                "WHERE 1=1 ");
+                "WHERE t.available = true ");
 
         if (StringUtils.hasText(dateTime)) {
             sql.append(" AND t.date_time = '").append(dateTime).append("'");
@@ -73,5 +74,13 @@ public class TicketRepository {
         sql.append(" LIMIT ").append(size).append(" OFFSET ").append(page * size);
 
         return jdbcTemplate.query(sql.toString(), new TicketRowMapper());
+    }
+
+    public void purchaseTicket(Long ticketId, Long userId) {
+        String sql = "UPDATE tickets " +
+                     "SET user_id = ?, available = FALSE" +
+                     " WHERE id = ?";
+
+        jdbcTemplate.update(sql, userId, ticketId);
     }
 }

@@ -30,10 +30,11 @@ CREATE TABLE paths
 CREATE TABLE tickets
 (
     id          SERIAL PRIMARY KEY,
-    path_id     INTEGER        NOT NULL REFERENCES paths (id),
+    path_id     INTEGER NOT NULL REFERENCES paths (id),
     date_time   DATE,
     seat_number INTEGER,
     price       NUMERIC(19, 4),
-    available   BOOLEAN
+    available   BOOLEAN,
+    user_id     INTEGER REFERENCES users (id)
 );
 

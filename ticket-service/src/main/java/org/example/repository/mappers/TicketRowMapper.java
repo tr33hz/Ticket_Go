@@ -17,6 +17,7 @@ public class TicketRowMapper implements RowMapper<Ticket> {
         ticket.setSeatNumber(rs.getInt("SEAT_NUMBER"));
         ticket.setPrice(rs.getBigDecimal("PRICE"));
         ticket.setAvailable(rs.getBoolean("AVAILABLE"));
+        ticket.setUserId(rs.getLong("USER_ID"));
 
 
         return ticket;
